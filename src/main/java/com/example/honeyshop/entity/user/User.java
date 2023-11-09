@@ -3,6 +3,7 @@ package com.example.honeyshop.entity.user;
 import com.example.honeyshop.converter.RoleTypesConverter;
 import com.example.honeyshop.entity.BaseTimeEntity;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -27,4 +28,13 @@ public class User extends BaseTimeEntity {
     @Convert(converter = RoleTypesConverter.class)
     @Column(nullable = false, length = 50) private Set<RoleType> roleTypes = new LinkedHashSet<>();
     @Column(nullable = false, length = 20) private String phoneNumber;
+
+    @Builder
+    private User(String id, String password, String nickname, Set<RoleType> roleTypes, String phoneNumber) {
+        this.id = id;
+        this.password = password;
+        this.nickname = nickname;
+        this.roleTypes = roleTypes;
+        this.phoneNumber = phoneNumber;
+    }
 }

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <link rel="stylesheet" type="text/css" href="/css/sign-up.css">
+</head>
+<body>
+<div class="container">
+    <h1>회원가입</h1>
+    <div th:if="${errorMessage}">
+        <span th:text="${errorMessage}"></span>
+    </div>
+    <form action="/sign-up" method="post">
+
+        <label for="id">아이디:</label>
+        <input type="text" id="id" name="id" required>
+
+        <label for="password">비밀번호:</label>
+        <input type="password" id="password" name="password" required>
+
+        <label for="nickname">닉네임:</label>
+        <input type="text" id="nickname" name="nickname" required>
+
+        <label for="phone-number">연락처:</label>
+        <input type="tel" id="phone-number" name="phoneNumber" required>
+
+        <input type="submit" value="가입하기">
+    </form>
+</div>
+</body>
+</html>
