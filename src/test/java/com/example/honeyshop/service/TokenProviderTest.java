@@ -69,7 +69,7 @@ class TokenProviderTest {
         UserPrincipal user = createUserPrincipal(authoritiesString);
         Date now = new Date();
         Date beforeDay = new Date(now.getTime() - Duration.ofDays(7).toMillis());
-        log.info("beforeDay : {}", beforeDay);
+        //log.info("beforeDay : {}", beforeDay);
         String token = getToken(now, beforeDay, user);
 
         //when
@@ -87,7 +87,7 @@ class TokenProviderTest {
         UserPrincipal user = createUserPrincipal(authoritiesString);
         Date now = new Date();
         Date expiry = new Date(now.getTime() + Duration.ofDays(7).toMillis());
-        log.info("beforeDay : {}", expiry);
+        //log.info("beforeDay : {}", expiry);
         String token = getToken(now, expiry, user);
 
         //when

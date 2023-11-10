@@ -22,7 +22,7 @@ public class LoginService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @Transactional(readOnly = true)
+    @Transactional
     public String signUp(SignUpRequest request) {
 
         userRepository.findById(request.getId())
