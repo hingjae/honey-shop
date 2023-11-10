@@ -55,7 +55,7 @@ class LoginServiceTest {
     @DisplayName("signUp() : 유저 정보를 입력 후 회원가입")
     @Test
     void test2() {
-
+        //todo : 테스트 완성하기
     }
 
     private static User testUser() {
