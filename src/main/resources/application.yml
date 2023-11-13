@@ -24,6 +24,3 @@ logging:
     org.hibernate.SQL: debug
     org.hibernate.type.descriptor.sql.BasicBinder: trace
 
-jwt:
-  issuer: ${JWT_ISSUER}
-  secret_key: ${JWT_SECRET_KEY}

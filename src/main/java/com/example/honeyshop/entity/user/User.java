@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -25,9 +24,10 @@ public class User extends BaseTimeEntity {
     @Column(length = 100, nullable = false) private String password;
     @Column(length = 30, nullable = false) private String nickname;
 
+    @Column(nullable = false, length = 20) private String phoneNumber;
+
     @Convert(converter = RoleTypesConverter.class)
     @Column(nullable = false, length = 50) private Set<RoleType> roleTypes = new LinkedHashSet<>();
-    @Column(nullable = false, length = 20) private String phoneNumber;
 
     @Builder
     private User(String id, String password, String nickname, Set<RoleType> roleTypes, String phoneNumber) {

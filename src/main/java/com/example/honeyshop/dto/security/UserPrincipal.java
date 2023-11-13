@@ -1,6 +1,7 @@
 package com.example.honeyshop.dto.security;
 
 import com.example.honeyshop.entity.user.RoleType;
+import com.example.honeyshop.entity.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
@@ -8,7 +9,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -33,6 +33,20 @@ public class UserPrincipal implements UserDetails {
                 .map(GrantedAuthority::getAuthority)
                 .sorted()
                 .collect(Collectors.joining(","));
+    }
+
+    public static UserPrincipal from(User entity) {
+        return UserPrincipal.builder()
+                .id(entity.getId())
+                .password(entity.getPassword())
+                .nickname(entity.getNickname())
+                .authorities(
+                        entity.getRoleTypes().stream()
+                                .map(RoleType::name)
+                                .map(SimpleGrantedAuthority::new)
+                                .collect(Collectors.toUnmodifiableSet())
+                )
+                .build();
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.example.honeyshop.service;
 
-import com.example.honeyshop.dto.login.SignUpRequest;
+import com.example.honeyshop.dto.signup.SignUpRequest;
 import com.example.honeyshop.entity.user.RoleType;
 import com.example.honeyshop.entity.user.User;
 import com.example.honeyshop.repository.UserRepository;
@@ -14,10 +14,10 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-public class LoginServiceTest2 {
+public class SignUpServiceTest2 {
 
     @Autowired
-    LoginService loginService;
+    SignUpService signUpService;
     @Autowired
     UserRepository userRepository;
 
@@ -28,7 +28,7 @@ public class LoginServiceTest2 {
         SignUpRequest request = new SignUpRequest("id", "password", "nickname", "01012345678");
 
         //when
-        String userId = loginService.signUp(request);
+        String userId = signUpService.signUp(request);
 
         User user = userRepository.findById(userId).get();
 

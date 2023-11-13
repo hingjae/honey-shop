@@ -1,20 +1,21 @@
 package com.example.honeyshop.controller;
 
-import com.example.honeyshop.dto.login.SignUpRequest;
-import com.example.honeyshop.service.LoginService;
+import com.example.honeyshop.dto.signup.SignUpRequest;
+import com.example.honeyshop.service.SignUpService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+@Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/sign-up")
 @Controller
 public class SignUpController {
 
-    private final LoginService loginService;
+    private final SignUpService signUpService;
 
     @GetMapping
     public String signUpPage() {
@@ -24,7 +25,8 @@ public class SignUpController {
     // Post -> Redirect -> GET
     @PostMapping
     public String signUp(SignUpRequest request) {
-        loginService.signUp(request);
+        log.info(request.getId());
+        signUpService.signUp(request);
         return "redirect:/";
     }
 }

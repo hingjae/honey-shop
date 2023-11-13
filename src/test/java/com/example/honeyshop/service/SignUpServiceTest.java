@@ -1,6 +1,6 @@
 package com.example.honeyshop.service;
 
-import com.example.honeyshop.dto.login.SignUpRequest;
+import com.example.honeyshop.dto.signup.SignUpRequest;
 import com.example.honeyshop.entity.user.User;
 import com.example.honeyshop.exception.signup.DuplicateUserIdException;
 import com.example.honeyshop.repository.UserRepository;
@@ -16,16 +16,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 
 @ExtendWith(MockitoExtension.class)
-class LoginServiceTest {
+class SignUpServiceTest {
 
     @InjectMocks
-    LoginService loginService;
+    SignUpService signUpService;
 
     @Mock
     UserRepository userRepository;
@@ -43,18 +41,12 @@ class LoginServiceTest {
 
         given(userRepository.findById(user.getId())).willReturn(Optional.of(user));
 
-        Throwable t = Assertions.catchThrowable(() -> loginService.signUp(request));
+        Throwable t = Assertions.catchThrowable(() -> signUpService.signUp(request));
 
         assertThat(t)
                 .isInstanceOf(DuplicateUserIdException.class)
                 .hasMessage("이미 존재하는 아이디 입니다.");
         then(userRepository).should().findById(user.getId());
-
-    }
-
-    @DisplayName("signUp() : 유저 정보를 입력 후 회원가입")
-    @Test
-    void test2() {
 
     }
 
