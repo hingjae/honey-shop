@@ -24,10 +24,10 @@ public class User extends BaseTimeEntity {
     @Column(length = 100, nullable = false) private String password;
     @Column(length = 30, nullable = false) private String nickname;
 
-    @Column(nullable = false, length = 20) private String phoneNumber;
+    @Column(length = 20, nullable = false) private String phoneNumber;
 
     @Convert(converter = RoleTypesConverter.class)
-    @Column(nullable = false, length = 50) private Set<RoleType> roleTypes = new LinkedHashSet<>();
+    @Column(length = 50, nullable = false) private Set<RoleType> roleTypes = new LinkedHashSet<>();
 
     @Builder
     private User(String id, String password, String nickname, Set<RoleType> roleTypes, String phoneNumber) {

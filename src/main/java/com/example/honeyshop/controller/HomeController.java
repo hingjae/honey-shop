@@ -17,6 +17,6 @@ public class HomeController {
         if (userPrincipal != null) {
             log.info(userPrincipal.getUsername());
         }
-        return "home";
+        return "redirect:/items";
     }
 }

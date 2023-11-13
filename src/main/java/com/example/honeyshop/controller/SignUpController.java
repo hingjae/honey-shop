@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/sign-up")
@@ -22,7 +24,7 @@ public class SignUpController {
         return "sign-up";
     }
 
-    // Post -> Redirect -> GET
+    // POST -> Redirect -> GET
     @PostMapping
     public String signUp(SignUpRequest request) {
         log.info(request.getId());
