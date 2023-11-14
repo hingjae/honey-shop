@@ -6,20 +6,24 @@
     <link rel="stylesheet" type="text/css" href="/css/login.css">
 </head>
 <body>
-<div class="container">
-    <h1>로그인</h1>
-    <div th:if="${errorMessage}">
-        <span class="red-text" th:text="${errorMessage}"></span>
+<header>
+    <div th:replace="~{fragment/topbar :: topbar}"></div>
+</header>
+<div class="main">
+    <div class="container">
+        <h1>로그인</h1>
+        <div th:if="${errorMessage}">
+            <span class="red-text" th:text="${errorMessage}"></span>
+        </div>
+        <form action="/login" method="post">
+            <label for="id">아이디:</label>
+            <input type="text" id="id" name="id" required>
+            <label for="password">비밀번호:</label>
+            <input type="password" id="password" name="password" required>
+            <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}"/>
+            <input type="submit" value="로그인">
+        </form>
     </div>
-    <form action="/login" method="post">
-        <label for="id">아이디:</label>
-        <input type="text" id="id" name="id" required>
-
-        <label for="password">비밀번호:</label>
-        <input type="password" id="password" name="password" required>
-        <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}"/>
-        <input type="submit" value="로그인">
-    </form>
 </div>
 </body>
 </html>

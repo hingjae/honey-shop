@@ -1,5 +1,6 @@
 package com.example.honeyshop.config.web;
 
+import com.example.honeyshop.entity.user.RoleType;
 import com.example.honeyshop.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -37,7 +39,8 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .mvcMatchers("/", "/login", "/sign-up").permitAll()
+                .mvcMatchers("/", "/login", "/sign-up", "/items", "/api/**").permitAll()
+                .mvcMatchers("/admin/**").hasAuthority(RoleType.ADMIN.name())
                 .anyRequest().authenticated();
 
         http.formLogin(login -> login

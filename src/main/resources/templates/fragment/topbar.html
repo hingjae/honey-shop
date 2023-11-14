@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">>
+<head>
+  <meta charset="UTF-8">
+  <title>상단바</title>
+  <link rel="stylesheet" type="text/css" href="/css/topbar.css">
+</head>
+<body>
+<div th:fragment="topbar" class="topbar">
+  <div class="header-menu">
+    <div class="logo"><a th:href="@{/items}">honey-shop</a></div>
+    <div class="menu">
+      <ul>
+        <!-- Check if the user is authenticated -->
+        <li sec:authorize="isAuthenticated()"><a th:href="@{/cart}">장바구니</a></li>
+        <li sec:authorize="isAuthenticated()"><a th:href="@{/wishlist}">위시리스트</a></li>
+        <li sec:authorize="isAuthenticated()"><a th:href="@{/mypage}">마이페이지</a></li>
+        <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">로그아웃</a></li>
+
+        <!-- Check if the user is not authenticated -->
+        <li sec:authorize="isAnonymous()"><a th:href="@{/login}">로그인</a></li>
+        <li sec:authorize="isAnonymous()"><a th:href="@{/sign-up}">회원가입</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+</body>
+</html>

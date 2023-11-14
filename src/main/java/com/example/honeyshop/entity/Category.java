@@ -1,12 +1,10 @@
 package com.example.honeyshop.entity;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
+@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
@@ -18,7 +16,8 @@ public class Category {
     @Column(length = 50, nullable = false) private String title;
 
     @Builder
-    private Category(String title) {
+    private Category(Long id, String title) {
+        this.id = id;
         this.title = title;
     }
 }
