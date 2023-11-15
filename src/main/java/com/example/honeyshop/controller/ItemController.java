@@ -25,6 +25,7 @@ public class ItemController {
         Page<SimpleItemResponse> itemPage = itemService.getItemPage(pageable);
         model.addAttribute("items", itemPage.getContent());
         model.addAttribute("isLast", itemPage.isLast());
+        model.addAttribute("nowPage", itemPage.getNumber());
         return "items";
     }
 }

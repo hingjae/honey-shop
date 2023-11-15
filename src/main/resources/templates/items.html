@@ -17,7 +17,7 @@
                 <img alt="Product 1">
                 <div class="product-info">
                     <h2 th:text="${item.name}">상품 1</h2>
-                    <p th:text="${item.price}">가격: $19.99</p>
+                    <p th:text="'가격: $' + ${item.price}">가격: $19.99</p>
                 </div>
             </a>
         </div>
@@ -25,6 +25,7 @@
 <div class="load-more-container" th:unless="${isLast}">
     <button id="loadMoreButton">더보기</button>
 </div>
+<input hidden id="nowPage" th:value="${nowPage}" />
 
 <footer>
     <p>&copy; 2023 쇼핑몰. All rights reserved.</p>

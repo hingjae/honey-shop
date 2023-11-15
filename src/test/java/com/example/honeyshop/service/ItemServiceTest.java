@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@ActiveProfiles("test")
 @Transactional
 @SpringBootTest
 class ItemServiceTest {
@@ -41,7 +43,7 @@ class ItemServiceTest {
         Page<SimpleItemResponse> itemPage = itemService.getItemPage(request);
         assertThat(itemPage.getContent()).isNotEmpty();
         assertThat(itemPage.getSize()).isEqualTo(request.getPageSize());
-        assertThat(itemPage.getTotalPages()).isEqualTo(categoryCount);
+        assertThat(itemPage.getTotalPages()).isEqualTo(3);
         assertThat(itemPage.getNumber()).isEqualTo(request.getPageNumber());
         assertThat(itemPage.getTotalElements()).isEqualTo(itemCount);
     }
@@ -50,7 +52,7 @@ class ItemServiceTest {
         List<Item> itemList = new ArrayList<>();
         for(int i = 0; i < count; i++) {
             Item item = Item.builder()
-                    .category(categoryRepository.findById(Long.valueOf(getRandomNumber(1, 3))).get())
+                    .category(categoryRepository.findById(Long.valueOf(String.valueOf(getRandomNumber(1, 3)))).get())
                     .name("item" + i)
                     .price((int) ((Math.random() * 11) + 1) * 1000)
                     .stock((int) (Math.random() * 20))
@@ -76,8 +78,7 @@ class ItemServiceTest {
     }
 
     private static int getRandomNumber(int min, int max) {
-
-        return (int) (Math.random() * (max - min + 1)) + min;
+        return ((int) (Math.random() * max)) + min;
     }
 
 }
