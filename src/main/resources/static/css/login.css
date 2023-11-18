@@ -1,4 +1,12 @@
+@import "topbar.css";
 body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.main {
     background-color: #333; /* 배경 색을 진한 회색(#333)으로 설정 */
     display: flex;
     justify-content: center;
@@ -47,4 +55,8 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: #0056b3;
+}
+
+.red-text {
+    color: red;
 }

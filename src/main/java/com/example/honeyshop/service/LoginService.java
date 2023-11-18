@@ -1,48 +1,25 @@
 package com.example.honeyshop.service;
 
-import com.example.honeyshop.dto.login.SignUpRequest;
-import com.example.honeyshop.entity.user.RoleType;
-import com.example.honeyshop.entity.user.User;
-import com.example.honeyshop.exception.signup.DuplicateUserIdException;
+import com.example.honeyshop.dto.security.UserPrincipal;
 import com.example.honeyshop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
-import java.util.Set;
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class LoginService {
+public class LoginService implements UserDetailsService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
 
-    @Transactional
-    public String signUp(SignUpRequest request) {
-
-        userRepository.findById(request.getId())
-                .ifPresent(user -> {
-                    throw new DuplicateUserIdException();
-                });
-
-        String userId = createUser(request).getId();
-        log.info("SignUp User : {}", userId);
-        return userId;
-    }
-
-    private User createUser(SignUpRequest request) {
-        return userRepository.save(User.builder()
-                .id(request.getId())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .nickname(request.getNickname())
-                .phoneNumber(request.getPhoneNumber())
-                .roleTypes(Set.of(RoleType.USER))
-                .build()
-        );
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findById(username)
+                .map(UserPrincipal::from)
+                .orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 id 입니다."));
     }
 }

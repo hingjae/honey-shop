@@ -1,23 +1,24 @@
 package com.example.honeyshop.service;
 
-import com.example.honeyshop.dto.login.SignUpRequest;
+import com.example.honeyshop.entity.user.RoleType;
 import com.example.honeyshop.entity.user.User;
-import com.example.honeyshop.exception.signup.DuplicateUserIdException;
 import com.example.honeyshop.repository.UserRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 
@@ -29,33 +30,41 @@ class LoginServiceTest {
 
     @Mock
     UserRepository userRepository;
-    @Mock
-    PasswordEncoder passwordEncoder;
 
-    //1.이미 있는 아이디일 경우
-    //2.정상적인 회원가입
-    @DisplayName("signUp() : 이미 있는 아이디로 가입할 경우 예외를 던진다.")
+    @DisplayName("loadUserByUsername() : 아이디를 찾는 데 성공한 경우")
     @Test
     void test() {
-        //given
         User user = testUser();
-        SignUpRequest request = new SignUpRequest("id", "password", "nickname", "1234");
-
         given(userRepository.findById(user.getId())).willReturn(Optional.of(user));
 
-        Throwable t = Assertions.catchThrowable(() -> loginService.signUp(request));
+        UserDetails userDetails = loginService.loadUserByUsername(user.getId());
 
-        assertThat(t)
-                .isInstanceOf(DuplicateUserIdException.class)
-                .hasMessage("이미 존재하는 아이디 입니다.");
+        assertThat(userDetails.getUsername()).isEqualTo(user.getId());
+        assertThat(userDetails.getPassword()).isEqualTo(user.getPassword());
+        assertThat(userDetails.getAuthorities()).isEqualTo(user.getRoleTypes().stream()
+                .map(RoleType::name)
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toUnmodifiableSet())
+        );
         then(userRepository).should().findById(user.getId());
-
     }
 
-    @DisplayName("signUp() : 유저 정보를 입력 후 회원가입")
+    @DisplayName("loadUserByUsername() : 아이디를 찾는 데 실패한 경우")
     @Test
     void test2() {
+<<<<<<< HEAD
         //todo : 테스트 완성하기
+=======
+        String userId = "id";
+        given(userRepository.findById(userId)).willThrow(UsernameNotFoundException.class);
+
+        Throwable t = catchThrowable(() -> loginService.loadUserByUsername(userId));
+
+        assertThat(t)
+                .isInstanceOf(UsernameNotFoundException.class);
+
+        then(userRepository).should().findById(userId);
+>>>>>>> a1874128711eb5332dad3fb26cb39562bdbdc410
     }
 
     private static User testUser() {
@@ -64,6 +73,7 @@ class LoginServiceTest {
                 .password("password")
                 .nickname("nickname")
                 .phoneNumber("1234")
+                .roleTypes(Set.of(RoleType.USER))
                 .build();
     }
 }
