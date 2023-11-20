@@ -40,7 +40,7 @@ public class WebSecurityConfig {
 
         http.authorizeRequests()
                 .mvcMatchers("/", "/login", "/sign-up", "/items", "/api/**").permitAll()
-                .mvcMatchers("/admin/**").hasAuthority(RoleType.ADMIN.name())
+                .mvcMatchers("/admin/**", "/items/new").hasAuthority(RoleType.ADMIN.name())
                 .anyRequest().authenticated();
 
         http.formLogin(login -> login

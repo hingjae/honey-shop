@@ -1,6 +1,7 @@
 package com.example.honeyshop.controller;
 
 import com.example.honeyshop.dto.item.SimpleItemResponse;
+import com.example.honeyshop.dto.item.UploadItemRequest;
 import com.example.honeyshop.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -10,6 +11,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequiredArgsConstructor
@@ -17,6 +19,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ItemController {
     private final ItemService itemService;
+
+    @GetMapping("/new")
+    public String uploadItemPage() {
+        return "upload-item";
+    }
+
+    @PostMapping("/new")
+    public String uploadItem(UploadItemRequest request) {
+        itemService.saveItem(request);
+        return "redirect:/items";
+    }
 
     @GetMapping
     public String getItemPage(

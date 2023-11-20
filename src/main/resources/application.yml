@@ -8,7 +8,7 @@ spring:
     activate:
       on-profile: local_h2
   datasource:
-    url: jdbc:h2:mem:testdb
+    url: jdbc:h2:tcp://localhost/~/honey-shop-test
     username: sa
   h2:
     console:
@@ -19,6 +19,8 @@ spring:
         format_sql: true
     open-in-view: false
     defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create
   sql:
     init:
       mode: always
@@ -26,6 +28,19 @@ logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.type.descriptor.sql.BasicBinder: trace
+
+cloud:
+  aws:
+    s3:
+      bucket: ${CLOUD_AWS_S3_BUCKET}
+    credentials:
+      access-key: ${CLOUD_AWS_CREDENTIALS_ACCESS-KEY}
+      secret-key: ${CLOUD_AWS_CREDENTIALS_SECRET-KEY}
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
 
 ---
 spring:
@@ -47,3 +62,16 @@ logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.type.descriptor.sql.BasicBinder: trace
+
+cloud:
+  aws:
+    s3:
+      bucket: ${CLOUD_AWS_S3_BUCKET}
+    credentials:
+      access-key: ${CLOUD_AWS_CREDENTIALS_ACCESS-KEY}
+      secret-key: ${CLOUD_AWS_CREDENTIALS_SECRET-KEY}
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false

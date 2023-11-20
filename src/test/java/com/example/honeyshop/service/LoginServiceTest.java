@@ -52,9 +52,9 @@ class LoginServiceTest {
     @DisplayName("loadUserByUsername() : 아이디를 찾는 데 실패한 경우")
     @Test
     void test2() {
-<<<<<<< HEAD
+
         //todo : 테스트 완성하기
-=======
+
         String userId = "id";
         given(userRepository.findById(userId)).willThrow(UsernameNotFoundException.class);
 
@@ -64,7 +64,7 @@ class LoginServiceTest {
                 .isInstanceOf(UsernameNotFoundException.class);
 
         then(userRepository).should().findById(userId);
->>>>>>> a1874128711eb5332dad3fb26cb39562bdbdc410
+
     }
 
     private static User testUser() {

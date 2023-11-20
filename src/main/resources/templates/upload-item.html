@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>상품 등록</title>
+</head>
+<body>
+
+<h2>상품 등록</h2>
+
+<form action="/upload" method="post" enctype="multipart/form-data">
+    <label for="category">카테고리:</label>
+    <select id="category" name="categoryID">
+        <option value=1L>전자제품</option>
+        <option value=2L>의류</option>
+        <option value=3L>도서</option>
+    </select>
+    <br><br>
+
+    <label for="name">상품명:</label>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="price">가격:</label>
+    <input type="text" id="price" name="price" required><br><br>
+
+    <label for="stock">재고량:</label>
+    <input type="text" id="stock" name="stock" required><br><br>
+
+    <label for="description">내용:</label><br>
+    <textarea id="description" name="description" rows="4" cols="50" required></textarea><br><br>
+
+    <ul>
+        <li><input type="file" accept="image/*" name="image1" />이미지 1 (대표 이미지) </li>
+        <li><input type="file" accept="image/*" name="image2" />이미지 2</li>
+        <li><input type="file" accept="image/*" name="image3" />이미지 3 </li>
+        <li><input type="file" accept="image/*" name="image4" />이미지 4 </li>
+        <li><input type="file" accept="image/*" name="image5" />이미지 5 </li>
+    </ul>
+
+    <input type="submit" value="업로드">
+</form>
+</body>
+</html>
