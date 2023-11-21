@@ -5,7 +5,6 @@ import com.example.honeyshop.entity.Category;
 import com.example.honeyshop.entity.Item;
 import com.example.honeyshop.repository.CategoryRepository;
 import com.example.honeyshop.repository.ItemRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +39,7 @@ class ItemServiceTest {
         createCategory(categoryCount);
         createItem(itemCount);
         PageRequest request = PageRequest.of(0, 10);
-        Page<SimpleItemResponse> itemPage = itemService.getItemPage(request);
+        Page<SimpleItemResponse> itemPage = itemService.getItemsPage(request);
         assertThat(itemPage.getContent()).isNotEmpty();
         assertThat(itemPage.getSize()).isEqualTo(request.getPageSize());
         assertThat(itemPage.getTotalPages()).isEqualTo(3);

@@ -1,5 +1,6 @@
 package com.example.honeyshop.service;
 
+import com.example.honeyshop.dto.item.DetailItemResponse;
 import com.example.honeyshop.dto.item.SimpleItemResponse;
 import com.example.honeyshop.dto.item.UploadItemRequest;
 import com.example.honeyshop.entity.Item;
@@ -39,8 +40,15 @@ public class ItemService {
     }
 
     @Transactional(readOnly = true)
-    public Page<SimpleItemResponse> getItemPage(Pageable pageable) {
+    public Page<SimpleItemResponse> getItemsPage(Pageable pageable) {
         return itemRepository.findAll(pageable)
                     .map(SimpleItemResponse::from);
+    }
+
+    @Transactional(readOnly = true)
+    public DetailItemResponse getItemPage(Long itemId) {
+        return itemRepository.findById(itemId)
+                .map(DetailItemResponse::from)
+                .orElseThrow(EntityNotFoundException::new);
     }
 }

@@ -82,3 +82,8 @@ footer {
     cursor: pointer;
     color: #fff;
 }
+
+.relative-size-image {
+    width: auto; /* 부모 요소의 50%로 크기 조정 */
+    height: auto; /* 세로 크기는 자동으로 조정 (비율 유지) */
+}

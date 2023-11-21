@@ -18,7 +18,7 @@ public class ItemApiController {
 
     @GetMapping
     public Page<SimpleItemResponse> getItemPage(Pageable pageable) {
-        return itemService.getItemPage(pageable);
+        return itemService.getItemsPage(pageable);
     }
 
 }

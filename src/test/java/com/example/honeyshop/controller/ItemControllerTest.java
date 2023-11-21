@@ -51,7 +51,7 @@ public class ItemControllerTest {
         // ItemService의 getItemPage 메서드를 호출하면서 가상의 데이터를 리턴하도록 설정
         Pageable pageable = PageRequest.of(0, 20, Sort.by(Sort.Direction.DESC, "createdDate"));
         Page<SimpleItemResponse> itemPage = new PageImpl<>(items, pageable, items.size());
-        when(itemService.getItemPage(pageable)).thenReturn(itemPage);
+        when(itemService.getItemsPage(pageable)).thenReturn(itemPage);
 
         // GET /items 요청 수행
         mockMvc.perform(get("/items"))
@@ -65,6 +65,6 @@ public class ItemControllerTest {
                 .andExpect(content().string(containsString("Item2"))); // 예시로 두 번째 아이템 이름이 HTML에 포함되었는지 확인
 
         // getItemPage 메서드가 한 번 호출되었는지 확인
-        verify(itemService, times(1)).getItemPage(pageable);
+        verify(itemService, times(1)).getItemsPage(pageable);
     }
 }
