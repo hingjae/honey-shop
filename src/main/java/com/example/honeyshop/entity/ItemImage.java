@@ -3,6 +3,8 @@ package com.example.honeyshop.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

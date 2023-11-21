@@ -1,6 +1,7 @@
 package com.example.honeyshop.controller;
 
 import com.example.honeyshop.dto.item.SimpleItemResponse;
+import com.example.honeyshop.service.CategoryService;
 import com.example.honeyshop.service.ItemService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public class ItemControllerTest {
 
     @MockBean
     private ItemService itemService;
+    @MockBean
+    private CategoryService categoryService;
 
     @Test
     @WithMockUser

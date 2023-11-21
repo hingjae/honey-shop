@@ -2,6 +2,7 @@ package com.example.honeyshop.controller;
 
 import com.example.honeyshop.dto.item.SimpleItemResponse;
 import com.example.honeyshop.dto.item.UploadItemRequest;
+import com.example.honeyshop.service.CategoryService;
 import com.example.honeyshop.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ItemController {
     private final ItemService itemService;
+    private final CategoryService categoryService;
 
     @GetMapping("/new")
-    public String uploadItemPage() {
+    public String uploadItemPage(Model model) {
+        model.addAttribute("categories", categoryService.getCategories());
         return "upload-item";
     }
 

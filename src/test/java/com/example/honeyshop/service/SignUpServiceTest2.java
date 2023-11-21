@@ -4,6 +4,7 @@ import com.example.honeyshop.dto.signup.SignUpRequest;
 import com.example.honeyshop.entity.user.RoleType;
 import com.example.honeyshop.entity.user.User;
 import com.example.honeyshop.repository.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,12 @@ public class SignUpServiceTest2 {
     SignUpService signUpService;
     @Autowired
     UserRepository userRepository;
+
+    @BeforeEach
+    void before() {
+        userRepository.deleteAll();
+
+    }
 
     @DisplayName("signUp() : 회원가입 테스트")
     @Test

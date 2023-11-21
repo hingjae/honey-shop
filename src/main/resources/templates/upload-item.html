@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>상품 등록</title>
+<!--    <link rel="stylesheet" type="text/css" href="/css/topbar.css">-->
+    <link rel="stylesheet" type="text/css" href="/css/upload-item.css">
 </head>
 <body>
-
-<h2>상품 등록</h2>
-
-<form action="/upload" method="post" enctype="multipart/form-data">
+<div th:replace="~{fragment/topbar :: topbar}"></div>
+<form action="/items/new" method="post" enctype="multipart/form-data">
+    <h2>상품 등록</h2>
     <label for="category">카테고리:</label>
-    <select id="category" name="categoryID">
-        <option value=1L>전자제품</option>
-        <option value=2L>의류</option>
-        <option value=3L>도서</option>
+    <select id="category" name="categoryId">
+        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.title}"></option>
     </select>
     <br><br>
 
@@ -30,13 +29,19 @@
     <textarea id="description" name="description" rows="4" cols="50" required></textarea><br><br>
 
     <ul>
-        <li><input type="file" accept="image/*" name="image1" />이미지 1 (대표 이미지) </li>
-        <li><input type="file" accept="image/*" name="image2" />이미지 2</li>
-        <li><input type="file" accept="image/*" name="image3" />이미지 3 </li>
-        <li><input type="file" accept="image/*" name="image4" />이미지 4 </li>
-        <li><input type="file" accept="image/*" name="image5" />이미지 5 </li>
+        <label for="image1">이미지 1 (대표 이미지)</label>
+        <li><input id="image1" type="file" accept="image/*" name="image1"/></li>
+        <label for="image2">이미지 2</label>
+        <li><input id="image2" type="file" accept="image/*" name="image2"/></li>
+        <label for="image3">이미지 3</label>
+        <li><input id="image3" type="file" accept="image/*" name="image3"/></li>
+        <label for="image4">이미지 4</label>
+        <li><input id="image4" type="file" accept="image/*" name="image4"/></li>
+        <label for="image5">이미지 5</label>
+        <li><input id="image5" type="file" accept="image/*" name="image5"/></li>
     </ul>
 
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
     <input type="submit" value="업로드">
 </form>
 </body>

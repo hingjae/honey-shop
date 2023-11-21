@@ -17,17 +17,22 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        default_batch_fetch_size: 100
     open-in-view: false
     defer-datasource-initialization: true
     hibernate:
-      ddl-auto: create
-  sql:
-    init:
-      mode: always
+      ddl-auto: none
+#  sql:
+#    init:
+#      mode: always
 logging:
   level:
     org.hibernate.SQL: debug
     org.hibernate.type.descriptor.sql.BasicBinder: trace
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: error
 
 cloud:
   aws:
@@ -55,6 +60,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
+    hibernate:
+      ddl-auto: create-drop
   sql:
     init:
       mode: never

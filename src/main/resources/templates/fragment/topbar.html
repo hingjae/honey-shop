@@ -12,6 +12,7 @@
     <div class="logo"><a th:href="@{/items}">honey-shop</a></div>
     <div class="menu">
       <ul>
+        <li sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/items/new}">상품 추가</a></li>
         <!-- Check if the user is authenticated -->
         <li sec:authorize="isAuthenticated()"><a th:href="@{/cart}">장바구니</a></li>
         <li sec:authorize="isAuthenticated()"><a th:href="@{/wishlist}">위시리스트</a></li>
