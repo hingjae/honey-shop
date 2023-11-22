@@ -1,6 +1,5 @@
 package com.example.honeyshop.controller;
 
-import com.example.honeyshop.dto.item.DetailItemResponse;
 import com.example.honeyshop.dto.item.SimpleItemResponse;
 import com.example.honeyshop.dto.item.UploadItemRequest;
 import com.example.honeyshop.service.CategoryService;
@@ -13,10 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -40,12 +36,15 @@ public class ItemController {
 
     @GetMapping
     public String getItemsPage(
-            @PageableDefault(size = 20, page = 0, sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable,
+            @PageableDefault(size = 10, page = 0, sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable,
+            @RequestParam(required = false) String searchParam,
             Model model) {
-        Page<SimpleItemResponse> itemPage = itemService.getItemsPage(pageable);
+        Page<SimpleItemResponse> itemPage = itemService.getItemsPage(searchParam, pageable);
         model.addAttribute("items", itemPage.getContent());
         model.addAttribute("isLast", itemPage.isLast());
         model.addAttribute("nowPage", itemPage.getNumber());
+        model.addAttribute("searchParam", searchParam);
+        model.addAttribute("pageSize", pageable.getPageSize());
         return "items";
     }
 

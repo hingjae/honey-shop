@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="/css/item.css">
-
 </head>
 <body>
 <div th:replace="~{fragment/topbar :: topbar}"></div>
 <div>
-    <h1>상품 상세</h1>
+    <h1 class="title">상품 상세</h1>
 </div>
 <div class="slideshow-container">
     <div th:each="image, iterStat : ${item.imagePathList}">

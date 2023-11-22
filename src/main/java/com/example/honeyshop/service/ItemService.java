@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -40,7 +41,11 @@ public class ItemService {
     }
 
     @Transactional(readOnly = true)
-    public Page<SimpleItemResponse> getItemsPage(Pageable pageable) {
+    public Page<SimpleItemResponse> getItemsPage(String searchParam, Pageable pageable) {
+        if (StringUtils.hasText(searchParam)) {
+            return itemRepository.findByNameContaining(searchParam, pageable)
+                    .map(SimpleItemResponse::from);
+        }
         return itemRepository.findAll(pageable)
                     .map(SimpleItemResponse::from);
     }

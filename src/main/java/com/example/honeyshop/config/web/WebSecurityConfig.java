@@ -33,7 +33,8 @@ public class WebSecurityConfig {
     public WebSecurityCustomizer configure() {
         return (web) -> web.ignoring()
                 .requestMatchers(toH2Console())
-                .mvcMatchers("/img/**", "/css/**", "/js/**");
+                .mvcMatchers("/img/**", "/css/**", "/js/**")
+                .mvcMatchers("/api/**");
     }
 
     @Bean

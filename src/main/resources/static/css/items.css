@@ -1,5 +1,9 @@
 @import "topbar.css";
 
+.title {
+    text-align: center;
+}
+
 a {
     text-decoration: none;
     color: inherit;
@@ -86,4 +90,24 @@ footer {
 .relative-size-image {
     width: auto; /* 부모 요소의 50%로 크기 조정 */
     height: auto; /* 세로 크기는 자동으로 조정 (비율 유지) */
+}
+
+/* 검색바 스타일 */
+.search-bar {
+    text-align: center;
+    margin: 15px 0;
+}
+
+.search-bar input {
+    padding: 8px;
+    width: 200px;
+    margin-right: 5px;
+}
+
+.search-bar button {
+    padding: 8px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
 }
