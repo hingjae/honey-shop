@@ -13,10 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
 
     @GetMapping
-    public String home(@AuthenticationPrincipal UserPrincipal userPrincipal) {
-        if (userPrincipal != null) {
-            log.info(userPrincipal.getUsername());
-        }
+    public String home() {
         return "redirect:/items";
     }
 }
