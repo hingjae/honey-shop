@@ -85,3 +85,11 @@ h1, h2 {
     color: #555;
     margin-bottom: 8px;
 }
+
+.sold-out-message {
+    background-color: #d9534f; /* 품절 메시지 배경 색상 */
+    color: #fff; /* 품절 메시지 텍스트 색상 */
+    padding: 5px 10px; /* 품절 메시지 안쪽 여백 */
+    border-radius: 5px; /* 품절 메시지 모서리 둥글게 만들기 */
+    margin-top: 5px; /* 품절 메시지와 상품 정보 간의 간격 조정 */
+}

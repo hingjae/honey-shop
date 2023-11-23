@@ -39,7 +39,7 @@ class ItemServiceTest {
         createCategory(categoryCount);
         createItem(itemCount);
         PageRequest request = PageRequest.of(0, 10);
-        Page<SimpleItemResponse> itemPage = itemService.getItemsPage(request);
+        Page<SimpleItemResponse> itemPage = itemService.getItemsPage(null, request);
         assertThat(itemPage.getContent()).isNotEmpty();
         assertThat(itemPage.getSize()).isEqualTo(request.getPageSize());
         assertThat(itemPage.getTotalPages()).isEqualTo(3);

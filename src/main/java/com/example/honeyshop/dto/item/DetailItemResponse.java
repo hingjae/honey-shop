@@ -16,18 +16,23 @@ public class DetailItemResponse {
     private final int stock;
     private final String description;
     private final List<String> imagePathList;
+    private final boolean isSoldOut;
 
     @Builder
-    private DetailItemResponse(Long id, String name, int price, int stock, String description, List<String> imagePathList) {
+    private DetailItemResponse(Long id, String name, int price, int stock, String description, List<String> imagePathList, boolean isSoldOut) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.stock = stock;
         this.description = description;
         this.imagePathList = imagePathList;
+        this.isSoldOut = isSoldOut;
     }
 
     public static DetailItemResponse from(Item entity) {
+
+        boolean isSoldOut = entity.getStock() == 0;
+
         return DetailItemResponse.builder()
                 .id(entity.getId())
                 .name(entity.getName())
@@ -39,6 +44,7 @@ public class DetailItemResponse {
                                 .map(ItemImage::getImagePath)
                                 .collect(Collectors.toList())
                 )
+                .isSoldOut(isSoldOut)
                 .build();
     }
 }

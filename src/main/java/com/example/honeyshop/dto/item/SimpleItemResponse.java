@@ -9,24 +9,29 @@ import java.time.LocalDateTime;
 
 @Getter
 public class SimpleItemResponse {
-    private Long id;
-    private String imagePath;
-    private String name;
-    private int price;
-    private int stock;
-    private LocalDateTime createdDate;
+    private final Long id;
+    private final String imagePath;
+    private final String name;
+    private final int price;
+    private final int stock;
+    private final LocalDateTime createdDate;
+    private final boolean isSoldOut;
 
     @Builder
-    private SimpleItemResponse(Long id, String imagePath, String name, int price, int stock, LocalDateTime createdDate) {
+    private SimpleItemResponse(Long id, String imagePath, String name, int price, int stock, LocalDateTime createdDate, boolean isSoldOut) {
         this.id = id;
         this.imagePath = imagePath;
         this.name = name;
         this.price = price;
         this.stock = stock;
         this.createdDate = createdDate;
+        this.isSoldOut = isSoldOut;
     }
 
     public static SimpleItemResponse from(Item entity) {
+
+        boolean isSoldOut = entity.getStock() == 0;
+
         return SimpleItemResponse.builder()
                 .id(entity.getId())
                 .imagePath(
@@ -40,6 +45,7 @@ public class SimpleItemResponse {
                 .price(entity.getPrice())
                 .stock(entity.getStock())
                 .createdDate(entity.getCreatedDate())
+                .isSoldOut(isSoldOut)
                 .build();
     }
 }

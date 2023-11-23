@@ -1,3 +1,5 @@
+const createDateDesSortOption = 'createdDate,desc';
+
 function formatPrice() {
     $(".item-price").each(function () {
         let itemPrice = $(this).text(); // 현재 요소의 텍스트 가져오기
@@ -13,7 +15,6 @@ function formatInputPrice(price) {
 function loadData() {
 
     let nowPage = parseInt($("#nowPage").val(), 10);
-
     let selectedSortOption = $('#selectOption').val();
     let searchParam = $('#searchParam').val();
     let pageSize = $('#pageSize').val();
@@ -22,17 +23,18 @@ function loadData() {
 
     if (isLoading) return;
 
-    let params = new URLSearchParams({
-        page: nowPage + 1,
-        size: pageSize,
-        sort: selectedSortOption,
-        searchParam: searchParam,
-    });
+    let params = [
+        'page=' + (nowPage + 1),
+        'size=' + pageSize,
+        'searchParam=' + searchParam,
+        'sort=' + selectedSortOption,
+        'sort=' + createDateDesSortOption,
+    ].join('&');
 
     isLoading = true;
 
     $.ajax({
-        url: '/api/items?' + params.toString(),
+        url: '/api/items?' + params,
         method: 'GET',
         success: function (data) {
             let content = data.content;
@@ -43,11 +45,17 @@ function loadData() {
                         '<img src=' + item.imagePath + ' alt="Product">' +
                         '<div class="product-info">' +
                         '<h2>' + item.name + '</h2>' +
-                        '<p class="item-price">' + item.price.toLocaleString() + ' 원</p>' +
-                        '</div>' +
-                        '</a>' +
-                        '</div>'
-                    ;
+                        '<p class="item-price">' + item.price.toLocaleString() + ' 원</p>';
+
+                        // 품절 여부에 따라 품절 텍스트 추가
+                        if (item.soldOut) {
+                            productCard += '<p class="sold-out-message">품절</p>';
+                        }
+
+                        // 상품 카드 HTML 마무리
+                        productCard += '</div>' +
+                            '</a>' +
+                            '</div>';
                     $('.product-container').append(productCard);
                 });
             }
@@ -73,15 +81,16 @@ function chooseSortOption() {
     let searchParam = $('#searchParam').val();
     let pageSize = $('#pageSize').val();
 
-    let params = new URLSearchParams({
-        page: nowPage,
-        size: pageSize,
-        sort: selectedSortOption,
-        searchParam: searchParam,
-    });
+    let params = [
+        'page=' + nowPage,
+        'size=' + pageSize,
+        'searchParam=' + searchParam,
+        'sort=' + selectedSortOption,
+        'sort=' + createDateDesSortOption
+    ].join('&');
 
     $.ajax({
-        url: '/api/items?' + params.toString(),
+        url: '/api/items?' + params,
         method: 'GET',
         success: function (data) {
             // 기존의 내용 지우기
@@ -95,11 +104,17 @@ function chooseSortOption() {
                         '<img src=' + item.imagePath + ' alt="Product">' +
                         '<div class="product-info">' +
                         '<h2>' + item.name + '</h2>' +
-                        '<p class="item-price">' + item.price.toLocaleString() + ' 원</p>' +
-                        '</div>' +
-                        '</a>' +
-                        '</div>'
-                    ;
+                        '<p class="item-price">' + item.price.toLocaleString() + ' 원</p>';
+
+                        // 품절 여부에 따라 품절 텍스트 추가
+                        if (item.soldOut) {
+                            productCard += '<p class="sold-out-message">품절</p>';
+                        }
+
+                        // 상품 카드 HTML 마무리
+                        productCard += '</div>' +
+                            '</a>' +
+                            '</div>';
                     $('.product-container').append(productCard);
                 });
             }
