@@ -17,7 +17,8 @@
         </div>
     </div>
 
-    <div class="slide-counter">Slide <span id="currentSlide">1</span> / <span th:text="${item.imagePathList.size()}"></span></div>
+    <div class="slide-counter">Slide <span id="currentSlide">1</span> / <span
+            th:text="${item.imagePathList.size()}"></span></div>
 
     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
     <a class="next" onclick="plusSlides(1)">&#10095;</a>
@@ -27,6 +28,24 @@
     <span class="item-price" th:text="${item.price}"></span>
     <p th:if="${item.soldOut}" class="sold-out-message">품절</p>
     <span th:text="${item.description}"></span>
+
+
+    <div th:unless="${item.soldOut}" class="add-to-cart">
+        <form id="addToCartForm" action="/cartItem" method="post">
+            <input type="hidden" name="itemId" th:value="${item.id}">
+            <div class="quantity-control">
+                <div>
+                    <button type="submit">장바구니 담기</button>
+                    <button type="button" onclick="decreaseQuantity()">-</button>
+                    <input type="text" id="quantityInput" name="quantity" value="1" readonly>
+                    <button type="button" onclick="increaseQuantity()">+</button>
+                    <input type="text" hidden th:value="${item.price}" name="price">
+                </div>
+            </div>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        </form>
+    </div>
+
 </div>
 
 <script src="/js/bin/jquery.min.js"></script>

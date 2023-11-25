@@ -93,3 +93,52 @@ h1, h2 {
     border-radius: 5px; /* 품절 메시지 모서리 둥글게 만들기 */
     margin-top: 5px; /* 품절 메시지와 상품 정보 간의 간격 조정 */
 }
+
+.add-to-cart {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.add-to-cart button {
+    background-color: #4caf50; /* 초록 배경 색상 */
+    color: white; /* 흰색 텍스트 색상 */
+    padding: 10px 20px; /* 버튼 텍스트 주변 여백 */
+    font-size: 16px; /* 버튼 텍스트의 글꼴 크기 */
+    border: none; /* 테두리 없음 */
+    border-radius: 5px; /* 둥근 모서리 */
+    cursor: pointer; /* 호버 시 커서 스타일 */
+    transition: background-color 0.3s; /* 호버 시 배경 색상 부드러운 전환 */
+}
+
+.add-to-cart button:hover {
+    background-color: #45a049; /* 호버 시 더 어두운 초록 색상 */
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.quantity-control button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.quantity-control input {
+    width: 50px;
+    text-align: center;
+    font-size: 16px;
+    margin: 0 10px;
+}
+
+.quantity-control button:hover {
+    background-color: #45a049;
+}

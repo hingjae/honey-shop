@@ -24,13 +24,15 @@ public class CartItem extends BaseTimeEntity{
     @JoinColumn(name = "item_id")
     private Item item;
 
-    @Column(nullable = false) private int count;
+    @Column(nullable = false) private int quantity;
+    @Column(nullable = false) private int price;
 
     @Builder
-    private CartItem(Long id, Cart cart, Item item, int count) {
+    private CartItem(Long id, Cart cart, Item item, int quantity, int price) {
         this.id = id;
         this.cart = cart;
         this.item = item;
-        this.count = count;
+        this.quantity = quantity;
+        this.price = price;
     }
 }

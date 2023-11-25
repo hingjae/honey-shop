@@ -32,3 +32,33 @@ function formatPrice() {
         $(this).text(formattedPrice); // 형식화된 가격으로 업데이트
     });
 }
+
+var quantityInput = document.getElementById('quantityInput');
+
+function decreaseQuantity() {
+    var currentQuantity = parseInt(quantityInput.value, 10);
+    if (currentQuantity > 1) {
+        quantityInput.value = currentQuantity - 1;
+    }
+}
+
+function increaseQuantity() {
+    var currentQuantity = parseInt(quantityInput.value, 10);
+    if (currentQuantity < 10) {
+        quantityInput.value = currentQuantity + 1;
+    }
+}
+
+function addToCart() {
+    var form = document.getElementById('addToCartForm');
+    // 여기에서 수량을 폼에 추가할 수 있습니다.
+    form.submit();
+}
+
+document.getElementById('addToCartForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    alert('장바구니에 상품이 추가되었습니다!');
+
+    this.submit();
+});
