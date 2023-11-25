@@ -2,6 +2,7 @@ package com.example.honeyshop.service;
 
 import com.example.honeyshop.dto.cart.CartResponse;
 import com.example.honeyshop.entity.Cart;
+import com.example.honeyshop.entity.CartItem;
 import com.example.honeyshop.entity.user.User;
 import com.example.honeyshop.repository.CartRepository;
 import com.example.honeyshop.repository.UserRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -24,11 +26,13 @@ public class CartService {
         User user = userRepository.findById(username)
                 .orElseThrow(EntityNotFoundException::new);
         Cart cart = user.getCart();
+
         if (cart == null) {
             cart = saveCart(user);
             user.setCart(cart);
         }
-        return CartResponse.from(cart);
+        List<CartItem> cartItems = cart.getCartItems();
+        return CartResponse.from(cart, cartItems);
     }
 
     private Cart saveCart(User user) {

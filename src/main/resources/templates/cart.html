@@ -7,7 +7,22 @@
 </head>
 <body>
 <div th:replace="~{fragment/topbar :: topbar}"></div>
-<h1 th:text="${cart}"></h1>
-<h1 th:text="${user}"></h1>
+<div class="container">
+    <h1>장바구니</h1>
+
+    <div class="cart-items">
+        <div th:each="cartItem : ${cartItems}" class="cart-item">
+            <div class="item-details">
+                <img th:src="${cartItem.imagePath}" alt="Product Image" class="item-image">
+                <h3 th:text="${cartItem.itemName}"></h3>
+                <p class="price" th:text="'가격: ' + ${cartItem.price}"></p>
+                <p th:text="'수량: ' + ${cartItem.quantity}"></p>
+                <p class="total" th:text="'총 가격: ' + ${cartItem.totalPrice}"></p>
+            </div>
+        </div>
+    </div>
+
+    <p class="total-price" th:text="'총합: ' + ${cartItemsTotalPriceSum}"></p>
+</div>
 </body>
 </html>
