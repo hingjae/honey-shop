@@ -7,22 +7,36 @@
 </head>
 <body>
 <div th:replace="~{fragment/topbar :: topbar}"></div>
+<h1>장바구니</h1>
 <div class="container">
-    <h1>장바구니</h1>
-
-    <div class="cart-items">
-        <div th:each="cartItem : ${cartItems}" class="cart-item">
-            <div class="item-details">
-                <img th:src="${cartItem.imagePath}" alt="Product Image" class="item-image">
-                <h3 th:text="${cartItem.itemName}"></h3>
-                <p class="price" th:text="'가격: ' + ${cartItem.price}"></p>
-                <p th:text="'수량: ' + ${cartItem.quantity}"></p>
-                <p class="total" th:text="'총 가격: ' + ${cartItem.totalPrice}"></p>
-            </div>
-        </div>
-    </div>
-
-    <p class="total-price" th:text="'총합: ' + ${cartItemsTotalPriceSum}"></p>
+    <table class="cart-table">
+        <thead>
+        <tr>
+            <th>상품 이미지</th>
+            <th class="product-header">상품명</th>
+            <th>가격</th>
+            <th>수량</th>
+            <th>주문 금액</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cartItem : ${cartItems}">
+            <td><img class="product-image" th:src="${cartItem.imagePath}" /></td>
+            <td>
+                <span class="product-name" th:text="${cartItem.itemName}"></span>
+            </td>
+            <td class="item-price" th:text="${cartItem.price}"></td>
+            <td th:text="${cartItem.quantity}"></td>
+            <td class="item-price" th:text="${cartItem.totalPrice}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <h3>
+        <span>총 금액 : </span>
+        <span class="item-price" th:text="${cartItemsTotalPriceSum}"></span>
+    </h3>
 </div>
+<script src="/js/bin/jquery.min.js"></script>
+<script src="/js/items.js"></script>
 </body>
 </html>

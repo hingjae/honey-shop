@@ -135,9 +135,7 @@ function chooseSortOption() {
 
 
 $(document).ready(function () {
-
     formatPrice();
-
     $('#loadMoreButton').on('click', function () {
         loadData();
     });
