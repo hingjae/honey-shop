@@ -24,4 +24,6 @@ public class CartController {
         model.addAttribute("cartItemsTotalPriceSum", cart.getCartItemsTotalPriceSum());
         return "cart";
     }
+
+    // TODO: 장바구니 상품 넣을 때 이미 존재하는 상품인지 체크, 장바구니에 담긴 물건 중 품절 여부 확인, 장바구니 상품 편집하기
 }
