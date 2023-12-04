@@ -26,7 +26,7 @@
                 <span class="product-name" th:text="${cartItem.itemName}"></span>
             </td>
             <td class="item-price" th:text="${cartItem.price}"></td>
-            <td th:text="${cartItem.quantity}"></td>
+            <td><span class="item-quantity" th:text="${cartItem.quantity}"></span></td>
             <td class="item-price" th:text="${cartItem.totalPrice}"></td>
         </tr>
         </tbody>
@@ -37,6 +37,6 @@
     </h3>
 </div>
 <script src="/js/bin/jquery.min.js"></script>
-<script src="/js/items.js"></script>
+<script src="/js/cart.js"></script>
 </body>
 </html>

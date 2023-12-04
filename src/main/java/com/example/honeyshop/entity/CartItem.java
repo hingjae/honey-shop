@@ -1,9 +1,6 @@
 package com.example.honeyshop.entity;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -24,7 +21,7 @@ public class CartItem extends BaseTimeEntity{
     @JoinColumn(name = "item_id")
     private Item item;
 
-    @Column(nullable = false) private int quantity;
+    @Setter @Column(nullable = false) private int quantity;
     @Column(nullable = false) private int price;
 
     @Builder
@@ -34,5 +31,9 @@ public class CartItem extends BaseTimeEntity{
         this.item = item;
         this.quantity = quantity;
         this.price = price;
+    }
+
+    public boolean isExist(Item item) {
+        return this.item.equals(item);
     }
 }
