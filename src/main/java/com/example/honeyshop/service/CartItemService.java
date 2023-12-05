@@ -87,4 +87,9 @@ public class CartItemService {
                         .build()
         );
     }
+
+    @Transactional
+    public void deleteCartItem(Long cartItemId) {
+        cartItemRepository.deleteById(cartItemId);
+    }
 }

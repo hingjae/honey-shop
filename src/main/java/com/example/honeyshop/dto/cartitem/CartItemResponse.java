@@ -8,6 +8,7 @@ import lombok.Getter;
 
 @Getter
 public class CartItemResponse {
+    private final Long cartItemId;
     private final Long itemId;
     private final String itemName;
     private final String imagePath;
@@ -16,7 +17,8 @@ public class CartItemResponse {
     private final int totalPrice;
 
     @Builder
-    private CartItemResponse(Long itemId, String itemName, String imagePath, int price, int quantity, int totalPrice) {
+    private CartItemResponse(Long cartItemId, Long itemId, String itemName, String imagePath, int price, int quantity, int totalPrice) {
+        this.cartItemId = cartItemId;
         this.itemId = itemId;
         this.itemName = itemName;
         this.imagePath = imagePath;
@@ -29,6 +31,7 @@ public class CartItemResponse {
     public static CartItemResponse from(CartItem entity) {
         Item item = entity.getItem();
         return CartItemResponse.builder()
+                .cartItemId(entity.getId())
                 .itemId(item.getId())
                 .itemName(item.getName())
                 .imagePath(

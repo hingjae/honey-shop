@@ -17,23 +17,30 @@
             <th>가격</th>
             <th>수량</th>
             <th>주문 금액</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="cartItem : ${cartItems}">
-            <td><img class="product-image" th:src="${cartItem.imagePath}" /></td>
-            <td>
-                <span class="product-name" th:text="${cartItem.itemName}"></span>
-            </td>
-            <td class="item-price" th:text="${cartItem.price}"></td>
-            <td><span class="item-quantity" th:text="${cartItem.quantity}"></span></td>
-            <td class="item-price" th:text="${cartItem.totalPrice}"></td>
+            <div class="row">
+                <td><img class="product-image" th:src="${cartItem.imagePath}"/></td>
+                <td>
+                    <span class="product-name" th:text="${cartItem.itemName}"></span>
+                </td>
+                <td class="item-price" th:text="${cartItem.price}"></td>
+                <td><span class="item-quantity" th:text="${cartItem.quantity}"></span></td>
+                <td class="item-price item-total-price" th:text="${cartItem.totalPrice}"></td>
+                <td>
+                    <button class="remove-btn">빼기</button>
+                </td>
+                <input type="hidden" th:value="${cartItem.cartItemId}"/>
+            </div>
         </tr>
         </tbody>
     </table>
     <h3>
         <span>총 금액 : </span>
-        <span class="item-price" th:text="${cartItemsTotalPriceSum}"></span>
+        <span id="total-price-sum" class="item-price" th:text="${cartItemsTotalPriceSum}"></span>
     </h3>
 </div>
 <script src="/js/bin/jquery.min.js"></script>
