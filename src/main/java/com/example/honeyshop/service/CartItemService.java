@@ -15,14 +15,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @Service
 public class CartItemService {
 
     private final CartItemRepository cartItemRepository;
-    private final CartRepository cartRepository;
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;
     @Transactional
@@ -32,30 +32,24 @@ public class CartItemService {
 
         Cart cart = user.getCart();
 
-        if (cart == null) {
-            cart = saveCart(user);
-            user.setCart(cart);
-        }
-
         Item item = itemRepository.findById(request.getItemId())
                 .orElseThrow(EntityNotFoundException::new);
 
         List<CartItem> cartItems = cart.getCartItems();
-        CartItem targetCartItem = getTargetCartItem(cartItems, item);
 
-        if (targetCartItem != null) {
+        //기존 장바구니에 이미 같은 물건이 담겨있는지 확인
+        //새로운 물건추가 또는 업데이트
+        List<Item> items = cartItems.stream()
+                .map(CartItem::getItem)
+                .collect(Collectors.toList());
+
+        if (items.contains(item)) {
             updateCartItemQuantity(request, cartItems, item);
         } else {
             saveNewCartItem(request, cart);
         }
     }
 
-    private CartItem getTargetCartItem(List<CartItem> cartItems, Item item) {
-        return cartItems.stream()
-                .filter(cartItem -> cartItem.isExist(item))
-                .findFirst()
-                .orElse(null);
-    }
 
     private void saveNewCartItem(SaveCartItemRequest request, Cart cart) {
         cartItemRepository.save(
@@ -72,20 +66,12 @@ public class CartItemService {
     }
 
     private static void updateCartItemQuantity(SaveCartItemRequest request, List<CartItem> cartItems, Item item) {
-        CartItem targetCartItem = cartItems.stream()
+        CartItem selectedItem = cartItems.stream()
                 .filter(cartItem -> cartItem.getItem().equals(item))
                 .findFirst()
-                .orElseThrow(IllegalStateException::new);
-        int targetCartItemQuantity = targetCartItem.getQuantity();
-        targetCartItem.setQuantity(targetCartItemQuantity + request.getQuantity());
-    }
+                .orElseThrow(IllegalArgumentException::new);
 
-    private Cart saveCart(User user) {
-        return cartRepository.save(
-                Cart.builder()
-                        .user(user)
-                        .build()
-        );
+        selectedItem.increaseQuantity(request.getQuantity());
     }
 
     @Transactional

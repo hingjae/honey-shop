@@ -36,4 +36,8 @@ public class CartItem extends BaseTimeEntity{
     public boolean isExist(Item item) {
         return this.item.equals(item);
     }
+
+    public void increaseQuantity(int quantity) {
+        this.quantity += quantity;
+    }
 }

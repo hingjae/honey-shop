@@ -39,7 +39,7 @@ public class CartItemResponse {
                                 .filter(ItemImage::isThumbnail)
                                 .map(ItemImage::getImagePath)
                                 .findFirst()
-                                .orElse(null)
+                                .orElseGet(() -> null)
                 )
                 .quantity(entity.getQuantity())
                 .price(entity.getPrice())

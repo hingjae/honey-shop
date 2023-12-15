@@ -39,7 +39,7 @@ public class SimpleItemResponse {
                                 .filter(ItemImage::isThumbnail)
                                 .map(ItemImage::getImagePath)
                                 .findFirst()
-                                .orElse(null)
+                                .orElseGet(() -> null)
                 )
                 .name(entity.getName())
                 .price(entity.getPrice())
@@ -48,4 +48,5 @@ public class SimpleItemResponse {
                 .isSoldOut(isSoldOut)
                 .build();
     }
+
 }
